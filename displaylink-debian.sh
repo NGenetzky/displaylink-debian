@@ -362,7 +362,11 @@ esac
 
 install(){
 separator
-download
+
+downloaded_zip="DisplayLink_Ubuntu_${version}.zip"
+if [ ! -f "${downloaded_zip}" ]; then
+	download
+fi
 
 # prep
 mkdir $driver_dir
@@ -370,7 +374,7 @@ mkdir $driver_dir
 separator
 echo -e "\nPreparing for install\n"
 test -d $driver_dir && /bin/rm -Rf $driver_dir
-unzip -d $driver_dir DisplayLink_Ubuntu_${version}.zip
+unzip -d $driver_dir "${downloaded_zip}"
 chmod +x $driver_dir/displaylink-driver-${version}.[0-9]*.run
 ./$driver_dir/displaylink-driver-${version}.[0-9]*.run --keep --noexec
 mv displaylink-driver-${version}.[0-9]*/ $driver_dir/displaylink-driver-${version}
